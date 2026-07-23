@@ -9,7 +9,16 @@ class MoviesController < ApplicationController
     else 
       @ratings_to_show = @all_ratings
     end
-    @movies = Movie.with_ratings(@ratings_to_show)
+
+    if Movie.all_sorts.include?(params[:sort_by])
+      @sort_by = params[:sort_by]
+    else
+      @sort_by = nil
+    end
+
+    @movies = Movie.with_ratings(@ratings_to_show).order(@sort_by)
+
+    @ratings_hash = @ratings_to_show.map { |rating| [rating, 1]}.to_h 
   end
 
   # GET /movies/1 or /movies/1.json

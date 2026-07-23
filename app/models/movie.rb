@@ -13,4 +13,9 @@ class Movie < ApplicationRecord
       Movie.where(rating: ratings_list)
     end
   end
+
+  def self.all_sorts
+    ['title', 'release_date']
+  end
+
 end
